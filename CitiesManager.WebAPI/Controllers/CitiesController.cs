@@ -40,8 +40,7 @@ public class CitiesController : ControllerBase
         City? city =
             await _context.Cities.FirstOrDefaultAsync(temp => temp.Id == id);
 
-        if (city == null) return NotFound();
-
+        if (city == null) return Problem("Invalid CityID", "City Search", 400);
 
         return city;
     }
@@ -83,9 +82,12 @@ public class CitiesController : ControllerBase
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
     public async Task<ActionResult<City>> PostCity(
-        [Bind(nameof(city.Id), nameof(city.Name))] City city
+        [Bind(nameof(city.Id), nameof(city.Name))]
+        City city
     )
     {
+        // if (ModelState.IsValid == false) return BadRequest(ModelState);
+
         _context.Cities.Add(city);
         await _context.SaveChangesAsync();
 
