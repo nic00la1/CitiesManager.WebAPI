@@ -49,11 +49,20 @@ public class CitiesController : ControllerBase
     // PUT: api/Cities/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutCity(Guid id, City city)
+    public async Task<IActionResult> PutCity(Guid id,
+                                             [Bind(nameof(city.Id),
+                                                 nameof(city.Name))]
+                                             City city
+    )
     {
-        if (id != city.Id) return BadRequest();
+        if (id != city.Id) return BadRequest(); // HTTP 400
 
-        _context.Entry(city).State = EntityState.Modified;
+        City? existingCity = await _context.Cities.FindAsync(id);
+        if (existingCity == null) return NotFound(); // HTTP 404
+
+        existingCity.Name = city.Name;
+
+        await _context.SaveChangesAsync();
 
         try
         {
@@ -73,7 +82,9 @@ public class CitiesController : ControllerBase
     // POST: api/Cities
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
-    public async Task<ActionResult<City>> PostCity([FromBody] City city)
+    public async Task<ActionResult<City>> PostCity(
+        [Bind(nameof(city.Id), nameof(city.Name))] City city
+    )
     {
         _context.Cities.Add(city);
         await _context.SaveChangesAsync();
