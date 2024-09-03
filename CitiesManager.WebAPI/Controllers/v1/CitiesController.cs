@@ -8,11 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using CitiesManager.WebAPI.DatabaseContext;
 using CitiesManager.WebAPI.Models;
 
-namespace CitiesManager.WebAPI.Controllers;
+namespace CitiesManager.WebAPI.Controllers.v1;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CitiesController : ControllerBase
+[ApiVersion("1.0")]
+public class CitiesController : CustomControllerBase
 {
     private readonly ApplicationDbContext _context;
 
