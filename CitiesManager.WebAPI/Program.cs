@@ -12,6 +12,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("Default"));
 });
 
+// Swagger 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml")
+    ));
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +25,8 @@ WebApplication app = builder.Build();
 app.UseHsts();
 app.UseHttpsRedirection();
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();
