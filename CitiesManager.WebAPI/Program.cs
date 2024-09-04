@@ -16,6 +16,11 @@ builder.Services.AddControllers(options =>
 builder.Services.AddApiVersioning(config =>
 {
     config.ApiVersionReader = new UrlSegmentApiVersionReader();
+    // config.ApiVersionReader = new QueryStringApiVersionReader();
+    // config.ApiVersionReader = new HeaderApiVersionReader();
+
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
