@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitiesManager.WebAPI", "CitiesManager.WebAPI\CitiesManager.WebAPI.csproj", "{6F60F077-28FD-4158-93A3-FF9A3DEFA6A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CitiesManager.WebAPI", "CitiesManager.WebAPI\CitiesManager.WebAPI.csproj", "{6F60F077-28FD-4158-93A3-FF9A3DEFA6A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitiesManager.Core", "CitiesManager.Core\CitiesManager.Core.csproj", "{504C52FC-7772-48FF-8774-D43C89504FD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitiesManager.Infrastructure", "CitiesManager.Infrastracture\CitiesManager.Infrastructure.csproj", "{8B910DF7-952A-4DC8-A3B3-E238BB1B24B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{6F60F077-28FD-4158-93A3-FF9A3DEFA6A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F60F077-28FD-4158-93A3-FF9A3DEFA6A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F60F077-28FD-4158-93A3-FF9A3DEFA6A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504C52FC-7772-48FF-8774-D43C89504FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504C52FC-7772-48FF-8774-D43C89504FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504C52FC-7772-48FF-8774-D43C89504FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504C52FC-7772-48FF-8774-D43C89504FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B910DF7-952A-4DC8-A3B3-E238BB1B24B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B910DF7-952A-4DC8-A3B3-E238BB1B24B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B910DF7-952A-4DC8-A3B3-E238BB1B24B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B910DF7-952A-4DC8-A3B3-E238BB1B24B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
