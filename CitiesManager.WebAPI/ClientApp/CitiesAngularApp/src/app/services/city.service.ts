@@ -32,4 +32,10 @@ export class CityService {
 
     return this.httpClient.put<string>(`${API_BASE_URL}/v1/cities/${city.id}`, city, {headers: headers});
   }
+  public deleteCity(id: string | null): Observable<string> {
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer nicolaToken" );
+
+    return this.httpClient.delete<string>(`${API_BASE_URL}/v1/cities/${id}`, {headers: headers});
+  }
 }

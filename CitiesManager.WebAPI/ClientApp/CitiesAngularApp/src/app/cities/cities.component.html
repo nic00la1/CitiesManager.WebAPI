@@ -34,6 +34,12 @@
                   Update
                 </button>
                 }
+
+                @if (city.id != editCityId) {
+                  <button class="button button-red-back ml" (click)="deleteClicked(city, i)">
+                    Delete
+                  </button>
+                }
               </td>
             </tr>
           }

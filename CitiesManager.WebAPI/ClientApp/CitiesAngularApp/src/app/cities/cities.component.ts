@@ -69,7 +69,7 @@ export class CitiesComponent {
     this.isPostCityFormSubmitted = true;
 
     if (this.postCityForm.valid) {
-      const newCity = {
+      const newCity : any = {
         name: this.postCityForm.value.cityName
       };
 
@@ -110,5 +110,19 @@ export class CitiesComponent {
       },
       complete: () => {}
     });
+  }
+
+  // Executes when the user clicks on 'Delete' button for the particular city
+  deleteClicked(city: City,  i: number) : void {
+    if (confirm(`Are you sure to delete to delete this city: ${city.id}?`)) {
+      this.citiesService.deleteCity(city.id).subscribe({
+        next: (response: string) => {
+          console.log(response);
+
+          this.putCityFormArray.removeAt(i);
+          this.loadCities();
+        }
+      });
+    }
   }
 }
