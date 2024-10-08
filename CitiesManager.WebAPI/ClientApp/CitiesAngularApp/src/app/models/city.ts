@@ -1,10 +1,9 @@
 export class City {
-  id: string;
+  id?: string;
   name: string;
 
-    constructor(cityID: string, cityName: string) {
-    this.id = cityID;
-    this.name = cityName;
+  constructor(id: string | undefined, name: string) {
+    this.id = id;
+    this.name = name;
   }
 }
-
