@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {City} from '../models/city';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -12,6 +12,9 @@ export class CityService {
 
   }
   public getCities(): Observable<City[]> {
-    return this.httpClient.get<City[]>("https://localhost:7100/api/v1/cities")
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer nicolaToken" );
+
+    return this.httpClient.get<City[]>("https://localhost:7100/api/v1/cities", {headers: headers});
   }
 }
