@@ -7,18 +7,34 @@
 <div class="flex">
   <div class="flex-1 w-50">
     <div class="table-container">
-      <table class="table w-100">
+      <table class="table w-100" [formGroup]="putCityForm">
         <thead>
         <tr>
           <th>#</th>
           <th>City Name</th>
+          <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody formArrayName="cities">
           @for (city of cities; track city; let i =  $index) {
             <tr>
               <td>{{i+1}}</td>
-              <td>{{city.name}}</td>
+              <td [formGroupName]="i">
+                <input type="text" formControlName="name" [ngClass]="{ 'border-less-textbox': city.id != editCityId, 'form-input': city.id == editCityId}"
+                       [disableControl]="city.id != editCityId">
+              </td>
+              <td style="width: 200px">
+                @if (city.id != editCityId) {
+                <button class="button button-blue-back" (click)="editClicked(city)">
+                  Edit
+                </button>
+                }
+                @if (city.id == editCityId) {
+                <button class="button button-blue-back" (click)="updateClicked(i)">
+                  Update
+                </button>
+                }
+              </td>
             </tr>
           }
         </tbody>
@@ -35,7 +51,7 @@
         <!--City Name-->
         <div class="form-field flex">
           <div class="w-25">
-            <label for="Name" class="form-label pt">City Name</label>
+            <label class="form-label pt">City Name</label>
           </div>
           <div class="flex-1">
             <input type="text" class="form-input" formControlName="cityName"/>
