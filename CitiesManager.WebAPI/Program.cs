@@ -53,9 +53,10 @@ builder.Services.AddVersionedApiExplorer(options =>
 // CORS: localhost:4200
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddDefaultPolicy(policyBuilder =>
     {
-        builder.WithOrigins("http://localhost:4200");
+        policyBuilder.WithOrigins(builder.Configuration
+            .GetSection("AllowedOrigins").Get<string[]>());
     });
 });
 
