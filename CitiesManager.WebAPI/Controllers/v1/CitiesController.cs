@@ -11,6 +11,8 @@ using CitiesManager.WebAPI.Models;
 namespace CitiesManager.WebAPI.Controllers.v1;
 
 [ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiController]
 public class CitiesController : CustomControllerBase
 {
     private readonly ApplicationDbContext _context;
@@ -26,7 +28,7 @@ public class CitiesController : CustomControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [Produces("application/xml")]
+    [Produces("application/json")]
     public async Task<ActionResult<IEnumerable<City>>> GetCities()
     {
         if (_context.Cities == null) return NotFound();
@@ -34,11 +36,12 @@ public class CitiesController : CustomControllerBase
         List<City> cities =
             await _context.Cities.OrderBy(temp => temp.Name).ToListAsync();
 
-        return cities;
+        return Ok(cities);
     }
 
     // GET: api/Cities/5
     [HttpGet("{id}")]
+    [Produces("application/json")]
     public async Task<ActionResult<City>> GetCity(Guid id)
     {
         City? city =
@@ -46,12 +49,13 @@ public class CitiesController : CustomControllerBase
 
         if (city == null) return Problem("Invalid CityID", "City Search", 400);
 
-        return city;
+        return Ok(city);
     }
 
     // PUT: api/Cities/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
+    [Produces("application/json")]
     public async Task<IActionResult> PutCity(Guid id,
                                              [Bind(nameof(city.Id),
                                                  nameof(city.Name))]
@@ -85,6 +89,7 @@ public class CitiesController : CustomControllerBase
     // POST: api/Cities
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
+    [Produces("application/json")]
     public async Task<ActionResult<City>> PostCity(
         [Bind(nameof(city.Id), nameof(city.Name))]
         City city
@@ -100,6 +105,7 @@ public class CitiesController : CustomControllerBase
 
     // DELETE: api/Cities/5
     [HttpDelete("{id}")]
+    [Produces("application/json")]
     public async Task<IActionResult> DeleteCity(Guid id)
     {
         City? city = await _context.Cities.FindAsync(id);

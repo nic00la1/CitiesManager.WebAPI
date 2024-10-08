@@ -1,5 +1,9 @@
 <h2>Cities</h2>
 
+@if (cities.length === 0) {
+  <p class="text-red">No cities available.</p>
+}
+
 <div class="table-container">
   <table class="table w-100">
     <thead>
@@ -12,7 +16,7 @@
       @for (city of cities; track city; let i =  $index) {
         <tr>
           <td>{{i+1}}</td>
-          <td>{{city.cityName}}</td>
+          <td>{{city.name}}</td>
         </tr>
       }
     </tbody>

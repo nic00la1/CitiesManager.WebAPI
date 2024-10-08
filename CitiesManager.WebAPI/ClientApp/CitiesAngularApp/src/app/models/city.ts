@@ -1,10 +1,10 @@
 export class City {
-  cityID: string | null;
-  cityName: string | null;
+  id: string;
+  name: string;
 
     constructor(cityID: string, cityName: string) {
-    this.cityID = cityID;
-    this.cityName = cityName;
+    this.id = cityID;
+    this.name = cityName;
   }
 }
 
