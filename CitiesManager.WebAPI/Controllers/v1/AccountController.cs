@@ -1,5 +1,6 @@
 ﻿using CitiesManager.Core.DTO;
 using CitiesManager.Core.Identity;
+using CitiesManager.Core.ServiceContracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ public class AccountController : CustomControllerBase
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
+    private readonly IJwtService _jwtService;
 
     /// <summary>
     /// 
@@ -27,12 +29,14 @@ public class AccountController : CustomControllerBase
     /// <param name="roleManager"></param>
     public AccountController(UserManager<ApplicationUser> userManager,
                              SignInManager<ApplicationUser> signInManager,
-                             RoleManager<ApplicationRole> roleManager
+                             RoleManager<ApplicationRole> roleManager,
+                             IJwtService jwtService
     )
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
+        _jwtService = jwtService;
     }
 
     /// <summary>
@@ -72,7 +76,10 @@ public class AccountController : CustomControllerBase
             // Sign-in 
             await _signInManager.SignInAsync(user, false);
 
-            return Ok(user);
+            AuthenticationResponse authenticationResponse =
+                _jwtService.GenerateJwtToken(user);
+
+            return Ok(authenticationResponse);
         } else
         {
             string errorMessage = string.Join(" | ", result.Errors
@@ -128,7 +135,14 @@ public class AccountController : CustomControllerBase
 
             if (user == null) return NotFound();
 
-            return Ok(new { personName = user.PersonName, email = user.Email });
+
+            // Sign-in 
+            await _signInManager.SignInAsync(user, false);
+
+            AuthenticationResponse authenticationResponse =
+                _jwtService.GenerateJwtToken(user);
+
+            return Ok(authenticationResponse);
         }
 
         return Problem("Invalid email or password.");
