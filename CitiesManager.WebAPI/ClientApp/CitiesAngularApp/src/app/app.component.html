@@ -10,14 +10,25 @@
 
         <div class="flex-1 pr" id="search-box-div">
           <div class="navbar account-links">
-            <ul>
-              <li>
-                <a [routerLink]="['/login']">Login</a>
-              </li>
-              <li>
-                <a [routerLink]="['/register']">Register</a>
-              </li>
-            </ul>
+            @if (accountService.currentUserName === '' || accountService.currentUserName === null)  {
+              <ul>
+                <li>
+                  <a [routerLink]="['/login']">Login</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/register']">Register</a>
+                </li>
+              </ul>
+            }
+
+            @if (accountService.currentUserName !== '' && accountService.currentUserName !== null
+              && accountService.currentUserName !== undefined) {
+              <ul>
+                <li>
+                  <a  href="#" onclick="return false" (click)="onLogoutClicked()">Logout</a>
+                </li>
+              </ul>
+            }
           </div>
         </div>
 
