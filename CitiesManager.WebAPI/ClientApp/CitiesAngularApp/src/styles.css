@@ -30,7 +30,6 @@ body {
 }
 
 .navbar {
-  padding: 10px;
 }
 
   .navbar > ul {
@@ -175,7 +174,7 @@ body {
 }
 
 .mb {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 
@@ -349,9 +348,7 @@ body {
 
 .flex {
   display: flex;
-  flex-wrap: wrap;
-  align-content: stretch;
-  align-items: stretch;
+  justify-content: space-between;
 }
 
   .flex > div {

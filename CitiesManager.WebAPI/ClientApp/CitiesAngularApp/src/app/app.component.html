@@ -22,28 +22,31 @@
             }
 
             @if (accountService.currentUserName !== '' && accountService.currentUserName !== null
-              && accountService.currentUserName !== undefined) {
+            && accountService.currentUserName !== undefined) {
               <ul>
                 <li>
-                  <a  href="#" onclick="return false" (click)="onLogoutClicked()">Logout</a>
+                  <a href="#" onclick="return false" (click)="onLogoutClicked()">Logout</a>
                 </li>
               </ul>
             }
           </div>
         </div>
 
-        <div class="navbar mb">
-          <ul>
-            <li>
-              <a [routerLink]="['/cities']" [routerLinkActive]="['nav-active']">Cities</a>
-            </li>
-          </ul>
-        </div>
 
-        <div class="body">
-        </div>
       </div>
-      <router-outlet></router-outlet>
+    </div>
+
+    <div class="body">
+      <div class="navbar mb">
+        <ul>
+          <li>
+            <a [routerLink]="['/cities']" [routerLinkActive]="['nav-active']">Cities</a>
+          </li>
+        </ul>
+      </div>
+      <div class="cities-list">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>
