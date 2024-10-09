@@ -4,9 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace CitiesManager.WebAPI.Controllers.v1;
 
+/// <summary>
+/// 
+/// </summary>
 [AllowAnonymous]
 [ApiVersion("1.0")]
 public class AccountController : CustomControllerBase
@@ -15,6 +19,12 @@ public class AccountController : CustomControllerBase
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="userManager"></param>
+    /// <param name="signInManager"></param>
+    /// <param name="roleManager"></param>
     public AccountController(UserManager<ApplicationUser> userManager,
                              SignInManager<ApplicationUser> signInManager,
                              RoleManager<ApplicationRole> roleManager
@@ -25,7 +35,12 @@ public class AccountController : CustomControllerBase
         _roleManager = roleManager;
     }
 
-    [HttpPost]
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="registerDto"></param>
+    /// <returns></returns>
+    [HttpPost("register")]
     public async Task<ActionResult<ApplicationUser>> PostRegister(
         RegisterDTO registerDto
     )
@@ -67,6 +82,11 @@ public class AccountController : CustomControllerBase
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
     {
@@ -75,5 +95,54 @@ public class AccountController : CustomControllerBase
         if (user == null) return Ok(true);
 
         return Ok($"Email {email} is already in use");
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="loginDto"></param>
+    /// <returns></returns>
+    [HttpPost("login")]
+    public async Task<ActionResult<ApplicationUser>> PostLogin(
+        LoginDTO loginDto
+    )
+    {
+        // Validation
+        if (ModelState.IsValid == false)
+        {
+            string errorMessage = string.Join(" | ", ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage));
+
+            return Problem(errorMessage);
+        }
+
+        SignInResult result = await _signInManager.PasswordSignInAsync(
+            loginDto.Email,
+            loginDto.Password, false, false);
+
+        if (result.Succeeded)
+        {
+            ApplicationUser? user =
+                await _userManager.FindByEmailAsync(loginDto.Email);
+
+            if (user == null) return NotFound();
+
+            return Ok(new { personName = user.PersonName, email = user.Email });
+        }
+
+        return Problem("Invalid email or password.");
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("logout")]
+    public async Task<ActionResult<ApplicationUser>> GetLogout()
+    {
+        await _signInManager.SignOutAsync();
+
+        return NoContent();
     }
 }

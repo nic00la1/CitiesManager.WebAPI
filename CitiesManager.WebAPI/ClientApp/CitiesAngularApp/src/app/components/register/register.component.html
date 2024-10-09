@@ -1,0 +1,91 @@
+<div class="w-75 margin-auto">
+  <div class="form-container">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="registerSubmitted()">
+      <!--   PersonName   -->
+      <div class="form-field flex">
+        <div class="w-25">
+          <label for="personName" class="form-label pt">Person Name</label>
+        </div>
+
+        <div class="flex-1">
+          <input type="text" id="personName" class="form-input" formControlName="personName">
+          @if ((registerPersonNameControl.touched || isRegisterFormSubmitted) && (registerPersonNameControl.errors?.required)) {
+            <span class="text-red">Person Name can't be blank</span>
+          }
+        </div>
+      </div>
+
+      <!--   Email   -->
+      <div class="form-field flex">
+        <div class="w-25">
+          <label for="email" class="form-label pt">Email</label>
+        </div>
+
+        <div class="flex-1">
+          <input type="text" id="email" class="form-input" formControlName="email">
+          @if ((registerEmailControl.touched || isRegisterFormSubmitted) && (registerEmailControl.errors?.required)) {
+            <span class="text-red">Email can't be blank</span>
+          }
+          @if ((registerEmailControl.touched || isRegisterFormSubmitted) && (registerEmailControl.errors?.['email'])) {
+            <span class="text-red">Email should be in a proper email address format</span>
+          }
+        </div>
+      </div>
+
+      <!--   Phone Number   -->
+      <div class="form-field flex">
+        <div class="w-25">
+          <label for="personName" class="form-label pt">Phone Number</label>
+        </div>
+
+        <div class="flex-1">
+          <input type="text" id="phoneNumber" class="form-input" formControlName="phoneNumber">
+          @if ((registerPhoneNumberControl.touched || isRegisterFormSubmitted) && (registerPhoneNumberControl.errors?.required)) {
+            <span class="text-red">Phone number can't be blank</span>
+          }
+        </div>
+      </div>
+
+      <!--   Password   -->
+      <div class="form-field flex">
+        <div class="w-25">
+          <label for="personName" class="form-label pt">Password</label>
+        </div>
+
+        <div class="flex-1">
+          <input type="password" id="password" class="form-input" formControlName="password">
+          @if ((registerPasswordControl.touched || isRegisterFormSubmitted) && (registerPasswordControl.errors?.required)) {
+            <span class="text-red">Password can't be blank</span>
+          }
+        </div>
+      </div>
+
+      <!--   Confirm Password   -->
+      <div class="form-field flex">
+        <div class="w-25">
+          <label for="personName" class="form-label pt">Confirm password</label>
+        </div>
+
+        <div class="flex-1">
+          <input type="password" id="confirmPassword" class="form-input" formControlName="confirmPassword">
+          @if ((registerConfirmPasswordControl.touched || isRegisterFormSubmitted) && (registerConfirmPasswordControl.errors?.required)) {
+            <span class="text-red">Confirm password can't be blank</span>
+          }
+          @if ((registerConfirmPasswordControl.touched || isRegisterFormSubmitted) && (registerConfirmPasswordControl.errors?.['compareValidator'])) {
+            <span class="text-red">Password and confirm password don't match!</span>
+          }
+        </div>
+      </div>
+
+      <!--   Submit   -->
+      <div class="form-field flex">
+        <div class="w-25"></div>
+
+        <div class="flex-1">
+          <button type="submit" class="button button-green-back">Register</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

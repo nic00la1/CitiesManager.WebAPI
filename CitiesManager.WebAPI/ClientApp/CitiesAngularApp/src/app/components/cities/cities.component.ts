@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { City } from '../models/city';
-import { CityService } from '../services/city.service';
+import { City } from '../../models/city';
+import { CityService } from '../../services/city.service';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
-import { DisableControlDirective } from "../directives/disable-control.directive";
+import { DisableControlDirective } from "../../directives/disable-control.directive";
 
 @Component({
   selector: 'app-cities',
